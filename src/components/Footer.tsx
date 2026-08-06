@@ -1,7 +1,43 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import {
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  UserIcon,
+  BoltIcon,
+} from "@heroicons/react/24/solid";
 import { Container } from "@/components/Container";
+
+const contactItems = [
+  {
+    label: "Στεργιόπουλος Ιωάννης",
+    href: "/",
+    icon: UserIcon,
+  },
+  {
+    label: "Ηλεκτρολόγος",
+    href: "/",
+    icon: BoltIcon,
+  },
+  {
+    label: "+30 694 533 5942",
+    href: "tel:+306945335942",
+    icon: PhoneIcon,
+  },
+  {
+    label: "electrician.stergiopoulos@gmail.com",
+    href: "mailto:electrician.stergiopoulos@gmail.com",
+    icon: EnvelopeIcon,
+  },
+  {
+    label: "Κύπρου 94, Νίκαια Πειραιά",
+    href: "https://maps.app.goo.gl/ThjsgzdZro2xC9gQ6",
+    icon: MapPinIcon,
+    external: true,
+  },
+] as const;
 
 export function Footer() {
   const navigation = [
@@ -12,21 +48,6 @@ export function Footer() {
     "Επικοινωνία",
   ];
   const links = ["#home", "#ypiresies", "#erga", "#faq", "#contact"];
-  const legal = [
-    "Στεργιόπουλος Ιωάννης",
-    "Ηλεκτρολόγος",
-    "+30 694 533 5942",
-    "electrician.stergiopoulos@gmail.com",
-    "Κύπρου 94, Νίκαια Πειραιά",
-  ];
-
-  const legalLinks = [
-    "/",
-    "/",
-    "tel: +306945335942",
-    "mailto: electrician.stergiopoulos@gmail.com",
-    "https://maps.app.goo.gl/ThjsgzdZro2xC9gQ6",
-  ];
   return (
     <div className="relative">
       <Container>
@@ -119,25 +140,42 @@ export function Footer() {
                 Επικοινωνία
               </h3>
             </div>
-            <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
-              {legal.map((item, index) => (
-                <Link
-                  key={index}
-                  href={legalLinks[index]}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
-                >
-                  {item}
-                </Link>
-              ))}
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3145.3667838725423!2d23.640825312871108!3d37.96856877182005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bba1cf8e8989%3A0x6ec72f24021d7fc4!2sKiprou%2094%2C%20Nikea%20184%2051!5e0!3m2!1sen!2sgr!4v1781717748312!5m2!1sen!2sgr"
-                width="400"
-                height="300"
-                style={{ border: "0" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div className="flex w-full flex-col -mt-2 -ml-3 lg:ml-0">
+              {contactItems.map((item) => {
+                const Icon = item.icon;
+                const isExternal = "external" in item && item.external;
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    {...(isExternal
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="flex w-full items-start gap-3 rounded-md px-4 py-2 text-gray-500 transition hover:text-indigo-500 focus:bg-indigo-100 focus:text-indigo-500 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
+                  >
+                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-indigo-50 text-indigo-600 dark:bg-trueGray-800 dark:text-indigo-400">
+                      <Icon className="h-4 w-4" aria-hidden />
+                    </span>
+                    <span className="min-w-0 break-words pt-1.5 text-sm leading-snug sm:text-base">
+                      {item.label}
+                    </span>
+                  </Link>
+                );
+              })}
+
+              <div className="mt-4 w-full overflow-hidden rounded-xl border border-gray-100 shadow-sm dark:border-trueGray-700">
+                <div className="relative aspect-[4/3] w-full">
+                  <iframe
+                    title="Τοποθεσία καταστήματος — Κύπρου 94, Νίκαια"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3145.3667838725423!2d23.640825312871108!3d37.96856877182005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bba1cf8e8989%3A0x6ec72f24021d7fc4!2sKiprou%2094%2C%20Nikea%20184%2051!5e0!3m2!1sen!2sgr!4v1781717748312!5m2!1sen!2sgr"
+                    className="absolute inset-0 h-full w-full border-0"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

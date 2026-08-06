@@ -8,6 +8,7 @@ import { Video } from "@/components/Video";
 import { Faq } from "@/components/Faq";
 import { Cta } from "@/components/Cta";
 import { GallerySection } from "@/components/GallerySection";
+import { StoreSection } from "@/components/StoreSection";
 import { benefitOne } from "@/components/data";
 export default function Home() {
   return (
@@ -47,6 +48,8 @@ export default function Home() {
       </SectionTitle>
 
       <Faq />
+
+      <StoreSection />
     </Container>
   );
 }
